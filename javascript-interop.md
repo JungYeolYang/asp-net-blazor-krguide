@@ -15,7 +15,7 @@ In the sample app, two JavaScript functions are available to the client-side app
 * `showPrompt` – Produces a prompt to accept user input \(the user's name\) and returns the name to the caller.
 * `displayWelcome` – Assigns a welcome message from the caller to a DOM object with an `id` of `welcome`.
 
-_wwwroot/exampleJsInterop.js_:
+_wwwroot/exampleJsInterop.js_ 는 다음과 같습니다.
 
 ```text
 window.exampleJsFunctions = {
@@ -39,7 +39,7 @@ window.exampleJsFunctions = {
 };
 ```
 
-Place the `<script>` tag that references the JavaScript file in the _wwwroot/index.html_ file:
+다음과 같이 자바스크립트 파일을 참조하는 `<script>` 태그를 _wwwroot/index.html_ 파일에 추가합니다.
 
 ```text
 <!DOCTYPE html>
@@ -62,20 +62,20 @@ Place the `<script>` tag that references the JavaScript file in the _wwwroot/ind
 </html>
 ```
 
-Don't place a script tag in a component file because the script tag can't be updated dynamically.
+스크립트 태그는 동적으로 업데이트 되지 않으므로 컴포넌트 파일에 스크립트 태그를 추가하지 마십시오.
 
-.NET methods interop with the JavaScript functions by calling `InvokeAsync<T>` method on `IJSRuntime`.
+.NET 메서드에서는 `IJSRuntime`의 `InvokeAsync<T>`메소드를 호출하여 자바스크립트 함수를 연동합니다.
 
-The sample app uses a pair of C\# methods, `Prompt` and `Display`, to invoke the `showPrompt`and `displayWelcome` JavaScript functions:
+예제 앱에서는 두 개의 C\# 메소드, `Prompt`와 `Display`를 사용하여 `showPrompt`와 `displayWelcome` 자바스크립트 함수를 다음과 같이 호출합니다.
 
-_JsInteropClasses/ExampleJsInterop.cs_:
+_JsInteropClasses/ExampleJsInterop.cs_ 는 다음과 같습니다.
 
 ```text
 public class ExampleJsInterop
 {
     public static Task<string> Prompt(string text)
     {
-        // showPrompt is implemented in wwwroot/exampleJsInterop.js
+        // showPrompt는 wwwroot/exampleJsInterop.js에 구현됩니다.
         return JSRuntime.Current.InvokeAsync<string>(
             "exampleJsFunctions.showPrompt",
             text);
@@ -83,7 +83,7 @@ public class ExampleJsInterop
 
     public static Task<string> Display(string welcomeMessage)
     {
-        // displayWelcome is implemented in wwwroot/exampleJsInterop.js
+        // displayWelcome는 wwwroot/exampleJsInterop.js에 구현됩니다.
         return JSRuntime.Current.InvokeAsync<string>(
             "exampleJsFunctions.displayWelcome",
             welcomeMessage);
@@ -91,7 +91,7 @@ public class ExampleJsInterop
     
     public static Task CallHelloHelperSayHello(string name)
     {
-        // sayHello is implemented in wwwroot/exampleJsInterop.js
+        // sayHello는 wwwroot/exampleJsInterop.js에 구현됩니다.
         return JSRuntime.Current.InvokeAsync<object>(
             "exampleJsFunctions.sayHello",
             new DotNetObjectRef(new HelloHelper(name)));
